@@ -7,6 +7,23 @@ const App: React.FC = () => {
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [confirmationMessage, setConfirmationMessage] = useState<string>('');
 
+  const savePrompt = async (prompt: string) => {
+    const data = {
+      "prompt": prompt,
+    }
+    const resp = await fetch('https://sd-portal-api.azurewebsites.net/api/SaveTDPrompt', {
+      method: 'POST', // or 'PUT'
+      headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With",
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    return resp
+  }
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (prompt.trim() === '') {
@@ -14,6 +31,7 @@ const App: React.FC = () => {
       setConfirmationMessage('');
     } else {
       setWarningMessage('');
+      savePrompt(prompt);
       setConfirmationMessage('Your prompt has been submitted!');
       setPrompt('');
     }
