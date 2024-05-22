@@ -11,7 +11,7 @@ const App: React.FC = () => {
     const data = {
       "prompt": prompt,
     }
-    const resp = await fetch('https://sd-portal-api.azurewebsites.net/api/SaveTDPrompt', {
+    const resp = await fetch('https://sd-portal-api.azurewebsites.net/api/StorePrompt', {
       method: 'POST', // or 'PUT'
       headers: {
           "Access-Control-Allow-Origin": "*",
